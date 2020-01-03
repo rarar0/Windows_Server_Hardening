@@ -1,4 +1,4 @@
-﻿# --------- Self-elevate the script if required ---------
+# --------- Self-elevate the script if required ---------
 if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] 'Administrator')) {
     if ([int](Get-CimInstance -Class Win32_OperatingSystem | Select-Object -ExpandProperty BuildNumber) -ge 6000) {
         $CommandLine = "-File `"" + $MyInvocation.MyCommand.Path + "`" " + $MyInvocation.UnboundArguments
@@ -9,7 +9,7 @@ if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 
 # --------- create output directory on desktop ---------
 function makeOutDir{
-$host.UI.RawUI.foregroundcolor = "cyan"
+$host.UI.RawUI.foregroundcolor = "green"
 if(-not (Test-Path -LiteralPath $env:USERPROFILE\desktop\Script_Output)){
 Write-Host "Creating the output directory `"Script_Output`" on the desktop`n"
 New-Item -Path "$env:USERPROFILE\desktop\Script_Output" -ItemType Directory | Out-Null
@@ -21,8 +21,9 @@ $host.UI.RawUI.foregroundcolor = "white"
 }
 
 function downloadFirefox{
+$host.UI.RawUI.foregroundcolor = "green"
+Write-Host "Downloading Tools"
 $host.UI.RawUI.foregroundcolor = "cyan"
-Write-Host "Downloading Firefox installer"
 Write-Host "Importing BitsTransfer module"
 Import-Module BitsTransfer
 $url = "https://mzl.la/35e3KDv"
@@ -33,16 +34,18 @@ $host.UI.RawUI.foregroundcolor = "white"
 
 # --------- turn firewall on ---------
 function turnOnFirewall{
-$host.UI.RawUI.foregroundcolor = "cyan"
+$host.UI.RawUI.foregroundcolor = "green"
 Write-Host "`nTurning On Firewall"
+$host.UI.RawUI.foregroundcolor = "cyan"
 netsh advfirewall set allprofiles state on
 $host.UI.RawUI.foregroundcolor = "white"
 }
 
 # --------- firewall rules ---------
 function firewallRules{
-$host.UI.RawUI.foregroundcolor = "cyan"
+$host.UI.RawUI.foregroundcolor = "green"
 Write-Host "`nCreating firewall rules:"
+$host.UI.RawUI.foregroundcolor = "cyan"
 Write-Host "Block RDP In"
 netsh advfirewall firewall add rule name="Block RDP In" protocol=TCP dir=in localport=3389 action=block
 Write-Host "Block VNC In"
@@ -56,8 +59,9 @@ $host.UI.RawUI.foregroundcolor = "white"
 
 # --------- firewall status ---------
 function firewallStatus{
-$host.UI.RawUI.foregroundcolor = "cyan"
+$host.UI.RawUI.foregroundcolor = "green"
 Write-Host "`nGenerating firewall status"
+$host.UI.RawUI.foregroundcolor = "cyan"
 netsh firewall show config | Out-File $env:USERPROFILE\desktop\Script_Output\firewall_status.txt
 Write-Host "`"$env:USERPROFILE\desktop\Script_Output\firewall_status.txt`" has fireawll status"
 $host.UI.RawUI.foregroundcolor = "white"
@@ -65,8 +69,9 @@ $host.UI.RawUI.foregroundcolor = "white"
 
 # --------- Disable Teredo ---------
 function disableTeredo{
-$host.UI.RawUI.foregroundcolor = "cyan"
+$host.UI.RawUI.foregroundcolor = "green"
 Write-Host "`nDisabling Teredo"
+$host.UI.RawUI.foregroundcolor = "cyan"
 cmd /c 'echo > script.vbs set shell = CreateObject("WScript.Shell"):shell.SendKeys "netsh{ENTER}interface{ENTER}teredo{ENTER}set state disabled{ENTER}exit{ENTER}exit{ENTER}" & script.vbs'
 cmd
 $host.UI.RawUI.foregroundcolor = "white"
@@ -74,8 +79,9 @@ $host.UI.RawUI.foregroundcolor = "white"
 
 # --------- enable passwd complexity and length 12 ---------
 function setAssToTxt{
+$host.UI.RawUI.foregroundcolor = "green"
+Write-Host "`nAssociating script extensions to open with notepad"
 $host.UI.RawUI.foregroundcolor = "cyan"
-Write-Host "`nAssociating all+[?] script extensions to open with notepad"
 cmd /c assoc .bat=txtfile
 cmd /c assoc .js =txtfile
 cmd /c assoc .jse=txtfile
@@ -88,8 +94,9 @@ $host.UI.RawUI.foregroundcolor = "white"
 
 # --------- disable administrative shares ---------
 function disableAdminShares{
-$host.UI.RawUI.foregroundcolor = "cyan"
+$host.UI.RawUI.foregroundcolor = "green"
 Write-Host "`nDisabling Administrative Shares via registry"
+$host.UI.RawUI.foregroundcolor = "cyan"
 REG ADD HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters\ /v AutoShareServer /t REG_DWORD /d 0
 Write-Host "Stopping and starting server. Are you sure?"
 $host.UI.RawUI.foregroundcolor = "white"
@@ -98,8 +105,9 @@ cmd /c "net start Netlogon && net start dfs"
 }
 
 function disableCacheCreds{
+$host.UI.RawUI.foregroundcolor = "green"
+Write-Host "`nDisabling cached credentials via registry"
 $host.UI.RawUI.foregroundcolor = "cyan"
-Write-Host "`nDisabling Administrative Shares via registry"
 REG ADD HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\SecurityProviders\WDigest /v UseLogonCredential /t REG_DWORD /d 0
 $host.UI.RawUI.foregroundcolor = "white"
 }
@@ -107,8 +115,9 @@ $host.UI.RawUI.foregroundcolor = "white"
 # --------- regex netstat -abno --------- 
 function regexNetstat{
 makeOutDir
-$host.UI.RawUI.foregroundcolor = "cyan"
+$host.UI.RawUI.foregroundcolor = "green"
 Write-Host "`nRunning netstat -abno and formatting"
+$host.UI.RawUI.foregroundcolor = "cyan"
 $netstat = (netstat -abno | Select -skip 2) -join "`n" -split "(?= [TU][CD]P\s+(?:\d+\.|\[\w*:\w*:))" |
 ForEach-Object {$_.trim() -replace "`n",' ' -replace '\s{2,}',',' -replace '\*:\*', '*:*,' -replace 'PID', 'PID,Ownership_Info'} | ConvertFrom-Csv
 #create ESTABLISHED and LISTENING netstat files list with only unique PIDs
@@ -142,8 +151,9 @@ $host.UI.RawUI.foregroundcolor = "white"
 # --------- create list of running services file on desktop ---------
 function runningServices{
 makeOutDir
-$host.UI.RawUI.foregroundcolor = "cyan"
+$host.UI.RawUI.foregroundcolor = "green"
 Write-Host "`nCreating list of running services"
+$host.UI.RawUI.foregroundcolor = "cyan"
 Get-Service | Where-Object {$_.Status -eq "Running"} | Out-File $env:USERPROFILE\desktop\Script_Output\running_services.txt
 $host.UI.RawUI.foregroundcolor = "darkgray"
 cat $env:USERPROFILE\desktop\Script_Output\running_services.txt
@@ -153,7 +163,7 @@ $host.UI.RawUI.foregroundcolor = "white"
 }
 
 function serviceInfo{
-$host.UI.RawUI.foregroundcolor = "cyan"
+$host.UI.RawUI.foregroundcolor = "green"
 Write-Host "Displays more info on service by name"
 $host.UI.RawUI.foregroundcolor = "magenta"
 $service = Read-Host "`nEnter a service name to get its properties"
@@ -166,7 +176,7 @@ $host.UI.RawUI.foregroundcolor = "white"
 # --------- enumerate critical updates ---------
 function criticalUpdateCheck{
 makeOutDir
-$host.UI.RawUI.foregroundcolor = "cyan"
+$host.UI.RawUI.foregroundcolor = "green"
 Write-Host "`nComparing systeminfo HotFix list to master KB list"
 $critical_KBs = @{
 KB4012213 = "http://support.microsoft.com/kb/4012213";
@@ -221,7 +231,7 @@ $host.UI.RawUI.foregroundcolor = "white"
 # --------- prompt for a KB to download ---------
 function pickAKB{
     $applicable_KBs = Import-Clixml $env:userprofile\appdata\local\might_install.xml
-    $host.UI.RawUI.foregroundcolor = "cyan"
+    $host.UI.RawUI.foregroundcolor = "green"
     Write-Host "Here are the KBs to choose from. Try these first: KB2489256, KB2503658, KB2769369" 
     $host.UI.RawUI.foregroundcolor = "darkgray"   
     $applicable_KBs   
@@ -237,8 +247,9 @@ function pickAKB{
 
 # --------- disable SMB1 via registry ---------
 function disableSMB1{
-$host.UI.RawUI.foregroundcolor = "cyan"
+$host.UI.RawUI.foregroundcolor = "green"
 Write-Host "`nDisabling SMB1 via registry"
+$host.UI.RawUI.foregroundcolor = "cyan"
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" SMB1 -Type DWORD -Value 0 –Force
 Write-Host "SMB1 disabled"
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" SMB2 -Type DWORD -Value 1 –Force
@@ -248,8 +259,9 @@ Write-Host "SMB2 enabled"
 # --------- SMB status ---------
 function SMBStatus{
 makeOutDir
-$host.UI.RawUI.foregroundcolor = "cyan"
+$host.UI.RawUI.foregroundcolor = "green"
 Write-Host "`nReg query SMB status"
+$host.UI.RawUI.foregroundcolor = "cyan"
 #reg query HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters
 Get-Item HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters | ForEach-Object {Get-ItemProperty $_.pspath} | Out-File $env:USERPROFILE\desktop\Script_Output\SMB_status.txt
 $host.UI.RawUI.foregroundcolor = "darkgray"
@@ -261,9 +273,11 @@ $host.UI.RawUI.foregroundcolor = "white"
 
 # --------- disable RDP ---------
 function disableRDP{
-$host.UI.RawUI.foregroundcolor = "cyan"
+$host.UI.RawUI.foregroundcolor = "green"
+Write-Host "`nCloses RDP"
 sysdm.cpl
-Write-Host "`nStopping RDP Service"
+$host.UI.RawUI.foregroundcolor = "cyan"
+Write-Host "Stopping RDP Service"
 $host.UI.RawUI.foregroundcolor = "white"
 net stop "remote desktop services"
 $host.UI.RawUI.foregroundcolor = "cyan"
@@ -275,17 +289,19 @@ $host.UI.RawUI.foregroundcolor = "white"
 
 # --------- disable guest account ---------
 function disableGuest{
-$host.UI.RawUI.foregroundcolor = "cyan"
+$host.UI.RawUI.foregroundcolor = "green"
 Write-Host "`nDisabling guest account"
 net user guest /active:no
+$host.UI.RawUI.foregroundcolor = "cyan"
 Write-Host "Guest account disabled"
 $host.UI.RawUI.foregroundcolor = "white"
 }
 
 # --------- Configure NTP ---------
 function configNTP{
-$host.UI.RawUI.foregroundcolor = "cyan"
+$host.UI.RawUI.foregroundcolor = "green"
 Write-Host "Configuring NTP"
+$host.UI.RawUI.foregroundcolor = "cyan"
 #$computer = hostname
 #w32tm /config /computer:$computer /update
 $host.UI.RawUI.foregroundcolor = "white"
@@ -304,7 +320,7 @@ $host.UI.RawUI.foregroundcolor = "white"
 
 # --------- NTP Stripchart ---------
 function NTPStripchart{
-$host.UI.RawUI.foregroundcolor = "cyan"
+$host.UI.RawUI.foregroundcolor = "green"
 Write-Host "NTP Stripchart"
 $host.UI.RawUI.foregroundcolor = "magenta"
 $local_ip = Read-Host 'What is the target ip address? '
@@ -316,8 +332,9 @@ $host.UI.RawUI.foregroundcolor = "white"
 function changeP{
 ##Make sure $OU is accurate
 makeOutDir
-$host.UI.RawUI.foregroundcolor = "cyan"
+$host.UI.RawUI.foregroundcolor = "green"
 Write-Host "Changing all DC user passwords"
+$host.UI.RawUI.foregroundcolor = "cyan"
 Write-Host "Extracting the domain name"
 $domain = wmic computersystem get domain | select -skip 1
 $domain = "$domain".Trim()
@@ -368,6 +385,8 @@ $host.UI.RawUI.foregroundcolor = "white"
 
 # --------- read a password ---------
 function readPasswords{
+$host.UI.RawUI.foregroundcolor = "green"
+Write-Host "Retreives AD password from encrypted db file"
 $host.UI.RawUI.foregroundcolor = "magenta"
 $username = Read-Host "Enter a full username to retreive the password"
 $hashtable = Import-Clixml $env:userprofile\appdata\local\securePasswords.xml
@@ -383,6 +402,8 @@ $host.UI.RawUI.foregroundcolor = "white"
 # --------- set the admin password ---------
 function changePAdmin{
 makeOutDir
+$host.UI.RawUI.foregroundcolor = "green"
+Write-Host "`nChanges Admin password"
 $host.UI.RawUI.foregroundcolor = "cyan"
 Write-Host "Importing ActiveDirectory module"
 Import-Module ActiveDirectory
@@ -416,6 +437,8 @@ $host.UI.RawUI.foregroundcolor = "white"
 # --------- set the binddn password ---------
 function changePBinddn{
 makeOutDir
+$host.UI.RawUI.foregroundcolor = "green"
+Write-Host "`nChanges binddn password"
 $host.UI.RawUI.foregroundcolor = "cyan"
 Write-Host "Importing ActiveDirectory module"
 Import-Module ActiveDirectory
@@ -449,8 +472,9 @@ $host.UI.RawUI.foregroundcolor = "white"
 
 # --------- enable passwd complexity and length 12 ---------
 function setPassPol{
-$host.UI.RawUI.foregroundcolor = "cyan"
+$host.UI.RawUI.foregroundcolor = "green"
 Write-Host "`nEnabling password complexity, length 12 etc. policy"
+$host.UI.RawUI.foregroundcolor = "cyan"
 Write-Host "Importing ActiveDirectory module"
 Import-Module ActiveDirectory
 Write-Host "Extracting domain name"
@@ -463,8 +487,9 @@ $host.UI.RawUI.foregroundcolor = "white"
 
 # --------- Set admin sensitive, password required all, remove members from Schema Admins ---------
 function uniqueUserPols{
-$host.UI.RawUI.foregroundcolor = "cyan"
+$host.UI.RawUI.foregroundcolor = "green"
 Write-Host "`nEnabling admin sensitive, and password required for all users"
+$host.UI.RawUI.foregroundcolor = "cyan"
 Write-Host "Importing ActiveDirectory module"
 Import-Module ActiveDirectory
 Write-Host "`nUsers that don't require a password:"
@@ -491,7 +516,8 @@ $host.UI.RawUI.foregroundcolor = "white"
 
 # --------- group policy tool ---------
 function setGPO{
-$host.UI.RawUI.foregroundcolor = "cyan"
+$host.UI.RawUI.foregroundcolor = "green"
+Write-Host "Opening GP Tool"
 #WPF AD GUI script
 Add-Type -assembly System.Windows.Forms
 $main_form = New-Object System.Windows.Forms.Form
@@ -563,8 +589,9 @@ $host.UI.RawUI.foregroundcolor = "white"
 # --------- provide script output to the console ---------
 function readOutput{
 #output netstat -abno
-$host.UI.RawUI.foregroundcolor = "cyan"
+$host.UI.RawUI.foregroundcolor = "green"
 Write-Host "Reading script output to console:`n"
+$host.UI.RawUI.foregroundcolor = "cyan"
 Write-Host "#netstat Output:"
 if(-not (Test-Path -LiteralPath $env:USERPROFILE\desktop\Script_Output\netstat_est.txt)){
 $host.UI.RawUI.foregroundcolor = "darkgray"
@@ -637,6 +664,8 @@ $host.UI.RawUI.foregroundcolor = "white"
 
 # --------- run all critical functions ---------
 function runCritical{
+$host.UI.RawUI.foregroundcolor = "green"
+Write-Host "Running critical functions"
 makeOutDir
 turnOnFirewall
 firewallRules
@@ -663,6 +692,8 @@ restart-computer -Confirm
 }
 # --------- run enumeration functions ---------
 function enumerate{
+$host.UI.RawUI.foregroundcolor = "green"
+Write-Host "Running enumeration functions"
 regexNetstat
 firewallStatus
 runningServices
@@ -671,8 +702,10 @@ readOutput
 }
 # --------- provide list of available functions ---------
 function avail{
+$host.UI.RawUI.foregroundcolor = "green"
+Write-Host "`nAvailable Functions:"
 $host.UI.RawUI.foregroundcolor = "cyan"
-Write-Host "`nAvailable Functions:
+Write-Host "
 Main:
 runCritical (makeOutputDir, turnOnFirewall, setAssToTxt, disableAdminShares, disableSMB1, disableRDP, disableGuest, changePAdmin,
 changePBinddn, setGPO, changeP, setPassPol, uniqueUserPols, enumerate)
