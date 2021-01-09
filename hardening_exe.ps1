@@ -1504,10 +1504,12 @@ function userPols{
     Write-Host -ForegroundColor Cyan "Enabling admin sensitive (not delegated)"
     Write-Host -ForegroundColor Cyan "Compiling the domain"
     $domain = wmic computersystem get domain | Select-Object -skip 1
-    $domain = "$domain".Trim()
-    $domaina = "$domain".Trim() -replace '.\b\w+', '' #prefix
-    $domainb = "$domain".trim() -replace '^\w+\.', '' #suffix
-    Set-ADUser -Identity "CN=Administrator,CN=Users,DC=$domaina,DC=$domainb" -AccountNotDelegated $true
+    $domainout = ""
+    $domainsplit = $domain.split('.')
+    foreach ($str in $domainsplit) {
+    $domainout += ",DC="+$str
+    }
+    Set-ADUser -Identity $("CN=Administrator,CN=Users"+$domainout) -AccountNotDelegated $true
     Write-Host -ForegroundColor Cyan "Removing all members from 'Schema Admins' AD group"
     #Remove-ADGroupMember -Identity Schema Admins -Members Administrator -Confirm:$False
     $Group = "Schema Admins"
