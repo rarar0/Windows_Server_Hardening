@@ -99,7 +99,7 @@ function getTools{
         #csv_viewer_zip = "https://www.lo4d.com/get-file/csvfileview/35aa4e910d03353e5bffb2bdac9be578/"
         #winSCP_exe = "https://cdn.winscp.net/files/WinSCP-5.15.9-Setup.exe?secure=crToMdPESi8axxxbub8Y0Q==,1579143049"
         #malwarebytes_exe = "https://downloads.malwarebytes.com/file/mb-windows"
-        #firefox_installer_exe = "https://mzl.la/35e3KDv"
+        firefox_installer_exe = "https://mzl.la/35e3KDv"
         sysinternals_suite_zip = "https://download.sysinternals.com/files/SysinternalsSuite.zip"
         gmer_zip = "http://www2.gmer.net/gmer.zip" #malware and hidden rootkit kill tool
         sublime_exe = "https://download.sublimetext.com/Sublime%20Text%20Build%203211%20x64%20Setup.exe" #text editor
@@ -509,48 +509,53 @@ function firewallRules{ Param([Parameter(Mandatory=$false)][Switch]$reset)
         Write-Host -ForegroundColor Cyan  "DNS: port 53 TCP, UDP"
         netsh advfirewall firewall add rule name="Allow DNS UDP port 53 IN" protocol=UDP dir=in localport=53 action=allow | Out-Null
         netsh advfirewall firewall add rule name="Allow DNS TCP port 53 IN" protocol=TCP dir=in localport=53 action=allow | Out-Null
-        # netsh advfirewall firewall add rule name="Allow DNS UDP port 53 OUT" protocol=UDP dir=out localport=53 action=allow | Out-Null
-        # netsh advfirewall firewall add rule name="Allow DNS TCP port 53 OUT" protocol=TCP dir=out localport=53 action=allow | Out-Null
+        netsh advfirewall firewall add rule name="Allow DNS UDP port 53 OUT" protocol=UDP dir=out localport=53 action=allow | Out-Null
+        netsh advfirewall firewall add rule name="Allow DNS TCP port 53 OUT" protocol=TCP dir=out localport=53 action=allow | Out-Null
         Write-Host -ForegroundColor Cyan  "RPC endpoint mapper: port 135 TCP, UDP"
         netsh advfirewall firewall add rule name="Allow RPC endpoint mapper UDP port 135 IN" protocol=UDP dir=in localport=135 action=allow | Out-Null
         netsh advfirewall firewall add rule name="Allow RPC endpoint mapper TCP port 135 IN" protocol=TCP dir=in localport=135 action=allow | Out-Null
-        # netsh advfirewall firewall add rule name="Allow RPC endpoint mapper UDP port 135 OUT" protocol=UDP dir=out localport=135 action=allow | Out-Null
-        # netsh advfirewall firewall add rule name="Allow RPC endpoint mapper TCP port 135 OUT" protocol=TCP dir=out localport=135 action=allow | Out-Null
+        netsh advfirewall firewall add rule name="Allow RPC endpoint mapper UDP port 135 OUT" protocol=UDP dir=out localport=135 action=allow | Out-Null
+        netsh advfirewall firewall add rule name="Allow RPC endpoint mapper TCP port 135 OUT" protocol=TCP dir=out localport=135 action=allow | Out-Null
         Write-Host -ForegroundColor Cyan  "NetBIOS name service: port 137 TCP, UDP"
         netsh advfirewall firewall add rule name="Allow NetBIOS name service UDP port 137 IN" protocol=UDP dir=in localport=137 action=allow | Out-Null
         netsh advfirewall firewall add rule name="Allow NetBIOS name service TCP port 137 IN" protocol=TCP dir=in localport=137 action=allow | Out-Null
-        # netsh advfirewall firewall add rule name="Allow NetBIOS name service UDP port 137 OUT" protocol=UDP dir=out localport=137 action=allow | Out-Null
-        # netsh advfirewall firewall add rule name="Allow NetBIOS name service TCP port 137 OUT" protocol=TCP dir=out localport=137 action=allow | Out-Null
+        netsh advfirewall firewall add rule name="Allow NetBIOS name service UDP port 137 OUT" protocol=UDP dir=out localport=137 action=allow | Out-Null
+        netsh advfirewall firewall add rule name="Allow NetBIOS name service TCP port 137 OUT" protocol=TCP dir=out localport=137 action=allow | Out-Null
         Write-Host -ForegroundColor Cyan  "NetBIOS datagram service: port 138 UDP"
         netsh advfirewall firewall add rule name="Allow NetBIOS datagram service UDP port 138 IN" protocol=UDP dir=in localport=138 action=allow | Out-Null
-        # netsh advfirewall firewall add rule name="NetBIOS datagram service UDP port 138 OUT" protocol=UDP dir=out localport=138 action=allow | Out-Null
+        netsh advfirewall firewall add rule name="NetBIOS datagram service UDP port 138 OUT" protocol=UDP dir=out localport=138 action=allow | Out-Null
         Write-Host -ForegroundColor Cyan  "NetBIOS session service: port 139 TCP"
         netsh advfirewall firewall add rule name="Allow NetBIOS session service UDP port 139 IN" protocol=TCP dir=in localport=139 action=allow | Out-Null
-        # netsh advfirewall firewall add rule name="Allow NetBIOS session service UDP port 139 OUT" protocol=TCP dir=out localport=139 action=allow | Out-Null
+        netsh advfirewall firewall add rule name="Allow NetBIOS session service UDP port 139 OUT" protocol=TCP dir=out localport=139 action=allow | Out-Null
         Write-Host -ForegroundColor Cyan  "SMB over IP (Microsoft-DS): port 445 TCP, UDP"
         netsh advfirewall firewall add rule name="Allow SMB over IP (Microsoft-DS) UDP port 445 IN" protocol=UDP dir=in localport=445 action=allow | Out-Null
         netsh advfirewall firewall add rule name="Allow SMB over IP (Microsoft-DS) TCP port 445 IN" protocol=TCP dir=in localport=445 action=allow | Out-Null
-        # netsh advfirewall firewall add rule name="Allow SMB over IP (Microsoft-DS) UDP port 445 OUT" protocol=UDP dir=out localport=445 action=allow | Out-Null
-        # netsh advfirewall firewall add rule name="Allow SMB over IP (Microsoft-DS) TCP port 445 OUT" protocol=TCP dir=out localport=445 action=allow | Out-Null
+        netsh advfirewall firewall add rule name="Allow SMB over IP (Microsoft-DS) UDP port 445 OUT" protocol=UDP dir=out localport=445 action=allow | Out-Null
+        netsh advfirewall firewall add rule name="Allow SMB over IP (Microsoft-DS) TCP port 445 OUT" protocol=TCP dir=out localport=445 action=allow | Out-Null
         Write-Host -ForegroundColor Cyan  "LDAP: port 389 TCP, UDP"
         netsh advfirewall firewall add rule name="Allow LDAP: UDP port 389 IN" protocol=UDP dir=in localport=389 action=allow | Out-Null
         netsh advfirewall firewall add rule name="Allow LDAP: TCP port 389 IN" protocol=TCP dir=in localport=389 action=allow | Out-Null
-        # netsh advfirewall firewall add rule name="Allow LDAP: UDP port 389 OUT" protocol=UDP dir=out localport=389 action=allow | Out-Null
-        # netsh advfirewall firewall add rule name="Allow LDAP: TCP port 389 OUT" protocol=TCP dir=out localport=389 action=allow | Out-Null
+        netsh advfirewall firewall add rule name="Allow LDAP: UDP port 389 OUT" protocol=UDP dir=out localport=389 action=allow | Out-Null
+        netsh advfirewall firewall add rule name="Allow LDAP: TCP port 389 OUT" protocol=TCP dir=out localport=389 action=allow | Out-Null
+        Write-Host -ForegroundColor Cyan "LDAPZ: port 51203 TCP, UDP"
+        netsh advfirewall firewall add rule name="Allow LDAPZ: UDP port 51203 IN" protocol=UDP dir=in localport=51203 action=allow | Out-Null
+        netsh advfirewall firewall add rule name="Allow LDAPZ: TCP port 51203 IN" protocol=TCP dir=in localport=51203 action=allow | Out-Null
+        netsh advfirewall firewall add rule name="Allow LDAPZ: UDP port 51203 OUT" protocol=UDP dir=out localport=51203 action=allow | Out-Null
+        netsh advfirewall firewall add rule name="Allow LDAPZ: TCP port 51203 OUT" protocol=TCP dir=out localport=51203 action=allow | Out-Null
         Write-Host -ForegroundColor Cyan  "LDAP over SSL: port 636 TCP"
         netsh advfirewall firewall add rule name="Allow LDAP over SSL: TCP port 636 IN" protocol=TCP dir=in localport=636 action=allow | Out-Null
-        # netsh advfirewall firewall add rule name="Allow LDAP over SSL: TCP port 636 OUT" protocol=TCP dir=out localport=636 action=allow | Out-Null
+        netsh advfirewall firewall add rule name="Allow LDAP over SSL: TCP port 636 OUT" protocol=TCP dir=out localport=636 action=allow | Out-Null
         Write-Host -ForegroundColor Cyan  "Global catalog LDAP: port 3268 TCP"
         netsh advfirewall firewall add rule name="Allow Global catalog LDAP: TCP port 3268 IN" protocol=TCP dir=in localport=3268 action=allow | Out-Null
-        # netsh advfirewall firewall add rule name="Allow Global catalog LDAP: TCP port 3268 OUT" protocol=TCP dir=out localport=3268 action=allow | Out-Null
+        netsh advfirewall firewall add rule name="Allow Global catalog LDAP: TCP port 3268 OUT" protocol=TCP dir=out localport=3268 action=allow | Out-Null
         Write-Host -ForegroundColor Cyan  "Global catalog LDAP over SSL: port 3269 TCP"
         netsh advfirewall firewall add rule name="Allow Global catalog LDAP over SSL: TCP port 3269 IN" protocol=TCP dir=in localport=3269 action=allow | Out-Null
-        # netsh advfirewall firewall add rule name="Allow Global catalog LDAP over SSL: TCP port 3269 OUT" protocol=TCP dir=out localport=3269 action=allow | Out-Null
+        netsh advfirewall firewall add rule name="Allow Global catalog LDAP over SSL: TCP port 3269 OUT" protocol=TCP dir=out localport=3269 action=allow | Out-Null
         Write-Host -ForegroundColor Cyan  "Kerberos: port 88 TCP, UDP"    
         netsh advfirewall firewall add rule name="Allow Kerberos: UDP port 88 IN" protocol=UDP dir=in localport=88 action=allow | Out-Null
         netsh advfirewall firewall add rule name="Allow Kerberos: TCP port 88 IN" protocol=TCP dir=in localport=88 action=allow | Out-Null
-        # netsh advfirewall firewall add rule name="Allow Kerberos: UDP port 88 OUT" protocol=UDP dir=out localport=88 action=allow | Out-Null
-        # netsh advfirewall firewall add rule name="Allow Kerberos: TCP port 88 OUT" protocol=TCP dir=out localport=88 action=allow | Out-Null
+        netsh advfirewall firewall add rule name="Allow Kerberos: UDP port 88 OUT" protocol=UDP dir=out localport=88 action=allow | Out-Null
+        netsh advfirewall firewall add rule name="Allow Kerberos: TCP port 88 OUT" protocol=TCP dir=out localport=88 action=allow | Out-Null
         Write-Host -ForegroundColor Cyan  "Blocking inbound, allowing outbound"
         cmd /c "netsh advfirewall set currentprofile firewallpolicy blockinbound,allowoutbound"
     }    
@@ -1084,7 +1089,8 @@ function New-CtmADComplexPassword
     $domain = wmic computersystem get domain | Select-Object -skip 1
     $domain = "$domain".Trim()
     $domaina = "$domain".Trim() -replace '.\b\w+', ''
-    $domainb = "$domain".trim() -replace '^\w+\.', ''
+    $domainb = "$domain".Trim() -replace '^\w+\.', ''
+    $domainc = "$domain".Trim() -replace '',''
     $host.UI.RawUI.foregroundcolor = "magenta"
     $passLen = Read-Host "How long would you like all domain users passwords to be? (at least 12, enter an int)"
     Write-Host "Press any key to start changing all AD user passwords . . ."; $HOST.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown") | OUT-NULL
@@ -1151,7 +1157,8 @@ function changePAdmin{
     $domain = wmic computersystem get domain | Select-Object -skip 1
     $domain = "$domain".Trim()
     $domaina = "$domain".Trim() -replace '.\b\w+', ''
-    $domainb = "$domain".trim() -replace '^\w+\.', ''
+    $domainb = "$domain".Trim() -replace '^\w+\.', ''
+    $domainc = "$domain".Trim() -replace '',''
     Write-Host -ForegroundColor Cyan "Changing the admin password"
     $admin = "CN=Administrator,CN=Users,DC=$domaina,DC=$domainb"
     $host.UI.RawUI.foregroundcolor = "magenta"
@@ -1191,7 +1198,8 @@ function changePBinddn{
     $domain = wmic computersystem get domain | Select-Object -skip 1
     $domain = "$domain".Trim()
     $domaina = "$domain".Trim() -replace '.\b\w+', ''
-    $domainb = "$domain".trim() -replace '^\w+\.', ''
+    $domainb = "$domain".Trim() -replace '^\w+\.', ''
+    $domainc = "$domain".Trim() -replace '',''
     Write-Host "Changing binddn password"
     $binddn = "CN=binddn,CN=Users,DC=$domaina,DC=$domainb"
     $host.UI.RawUI.foregroundcolor = "magenta"
@@ -1500,7 +1508,8 @@ function userPols{
     $host.UI.RawUI.foregroundcolor = "darkgray"
     Get-ADUser -Filter {PasswordNotRequired -eq $true}    
     Get-ADUser -Filter {PasswordNotRequired -eq $true} | Set-ADUser -PasswordNotRequired $false
-    Write-Host -ForegroundColor Cyan "All above users now require a password even Guest account :-)"
+    Write-Host -ForegroundColor Cyan "All above users now require a
+     password even Guest account :-)"
     Write-Host -ForegroundColor Cyan "Enabling admin sensitive (not delegated)"
     Write-Host -ForegroundColor Cyan "Compiling the domain"
     $domain = wmic computersystem get domain | Select-Object -skip 1
@@ -1509,9 +1518,9 @@ function userPols{
     foreach ($str in $domainsplit) {
     $domainout += ",DC="+$str
     }
-    Set-ADUser -Identity $("CN=Administrator,CN=Users"+$domainout) -AccountNotDelegated $true
+    Set-ADUser -Identity ("CN=Users,CN=Administrator") -AccountNotDelegated $true
     Write-Host -ForegroundColor Cyan "Removing all members from 'Schema Admins' AD group"
-    #Remove-ADGroupMember -Identity Schema Admins -Members Administrator -Confirm:$False
+    Remove-ADGroupMember -Identity Schema Admins -Members Administrator -Confirm:$False
     $Group = "Schema Admins"
     Write-Host -ForegroundColor Cyan "Exporting default schema admins members to 'schem_admins_members.txt'"
     Get-ADGroupMember -Identity $Group | Out-File $env:userprofile\desktop\Script_Output\schema_admins_members.txt
