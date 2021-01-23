@@ -94,7 +94,7 @@ function getTools{
         #fciv_exe = "http://download.microsoft.com/download/c/f/4/cf454ae0-a4bb-4123-8333-a1b6737712f7/windows-kb841290-x86-enu.exe" #hash tool maybe use a baseline
         #splunkUF7_2_msi = 'https://www.splunk.com/page/download_track?file=7.2.0/windows/splunkforwarder-7.2.0-8c86330ac18-x64-release.msi&ac=&wget=true&name=wget&platform=Windows&architecture=x86_64&version=7.2.0&product=universalforwarder&typed=release'
         #splunkUF7_2_9_1_msi = "https://www.splunk.com/page/download_track?file=7.2.9.1/windows/splunkforwarder-7.2.9.1-605df3f0dfdd-x64-release.msi&ac=&wg&name=wget&platform=Windows&architecture=x86_64&version=7.2.9.1&product=universalforwarder&typed=release"
-        plunkforwarder_7_2_10_1_msi = "https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64"&"platform=windows"&"version=7.2.10.1"&"product=universalforwarder"&"filename=splunkforwarder-7.2.10.1-40b15aa1f501-x64-release.msi&wget=true"
+        #splunkforwarder_7_2_10_1_msi = "https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=windows&version=7.2.10.1&product=universalforwarder&filename=splunkforwarder-7.2.10.1-40b15aa1f501-x64-release.msi&wget=true"
         #splunkUF8_0_1_msi = "https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=windows&version=8.0.1&product=universalforwarder&filename=splunkforwarder-8.0.1-6db836e2fb9e-x64-release.msi&wget=true"
         TimelineExplorer_zip = "https://f001.backblazeb2.com/file/EricZimmermanTools/TimelineExplorer.zip" #View CSV and Excel files, filter, group, sort, etc. with ease
         #csv_viewer_zip = "https://www.lo4d.com/get-file/csvfileview/35aa4e910d03353e5bffb2bdac9be578/"
@@ -143,7 +143,7 @@ function getTools{
     function downloadlist {
     $host.UI.RawUI.foregroundcolor = "magenta"
     Write-Host "`nPrinting download list to Downloads"
-    New-Item -path "$env:userprofile\downloads\" -name "downloadlist.txt" -ItemType file -value "http://download.windowsupdate.com/msdownload/update/software/svpk/2011/02/windows6.1-kb976932-x64_74865ef2562006e51d7f9333b4a8d45b7a749dab.exe"
+    New-Item -path "$env:userprofile\downloads\" -name "downloadlist.txt" -ItemType file -value "http://download.windowsupdate.com/msdownload/update/software/svpk/2011/02/windows6.1-kb976932-x64_74865ef2562006e51d7f9333b4a8d45b7a749dab.exe, https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=windows&version=7.2.10.1&product=universalforwarder&filename=splunkforwarder-7.2.10.1-40b15aa1f501-x64-release.msi&wget=true"
     
     }
     #install sublime text editor?
