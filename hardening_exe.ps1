@@ -364,6 +364,8 @@ function downloadlist {
 https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=windows&version=7.2.10.1&product=universalforwarder&filename=splunkforwarder-7.2.10.1-40b15aa1f501-x64-release.msi&wget=true
 https://www.catalog.update.microsoft.com/search.aspx?q=kb4012215
 https://www.catalog.update.microsoft.com/Search.aspx?q=security%20monthly%20quality%20rollup%20for%20Windows%20Server%202008%20r2%20for%20x64
+dafodor39810204
+FatAlbert42!
 "
 }    
 if($downloadlist){
