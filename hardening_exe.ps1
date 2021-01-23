@@ -371,6 +371,7 @@ Run Windows PowerShell Modules (Admin Tools / Start Menu)
 •	Install .NET Framework 4.0 or .NET Framework 4.5
 o	https://www.microsoft.com/en-us/download/details.aspx?id=17851
 o	https://www.microsoft.com/en-us/download/details.aspx?id=30653
+o   https://www.microsoft.com/en-us/download/details.aspx?id=42883
 •	Install W2K8R2 ServicePack 1
 o	https://www.microsoft.com/en-us/download/details.aspx?id=5842
 •	Install Windows Management Framework 3.0 or 4.0 (6.1)
