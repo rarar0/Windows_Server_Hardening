@@ -54,7 +54,7 @@ Param(
     [switch]$avail,
     [switch]$timeStamp,
     [switch]$processes,
-    [switch]$netcease
+    [switch]$netcease,
     [switch]$downloadlist
 )
 #region misc
@@ -2601,6 +2601,7 @@ function avail {
     NTPStripchart
     plainPass (decrypt and display password(s) from ciphertext file)
     readOutput (read output files to console)
+    downloadlist (prints list of misc download links)
     avail (display this screen)"
 
     # "invasive"
