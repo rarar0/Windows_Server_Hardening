@@ -55,6 +55,7 @@ Param(
     [switch]$timeStamp,
     [switch]$processes,
     [switch]$netcease
+    [switch]$downloadlist
 )
 #region misc
 # --------- create output directory on desktop ---------
@@ -139,13 +140,6 @@ function getTools{
             #Write-Host "All relevant tools downloaded"
         }
     }else{Write-Host -ForegroundColor Cyan "All tools downloaded"}
-    #Write txt file for update downloads
-    function downloadlist {
-    $host.UI.RawUI.foregroundcolor = "magenta"
-    Write-Host "`nPrinting download list to Downloads"
-    New-Item -path "$env:userprofile\downloads\" -name "downloadlist.txt" -ItemType file -value "http://download.windowsupdate.com/msdownload/update/software/svpk/2011/02/windows6.1-kb976932-x64_74865ef2562006e51d7f9333b4a8d45b7a749dab.exe, https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=windows&version=7.2.10.1&product=universalforwarder&filename=splunkforwarder-7.2.10.1-40b15aa1f501-x64-release.msi&wget=true"
-    
-    }
     #install sublime text editor?
     function installSublime{
         if(-not (Test-Path "C:\Program Files\Sublime Text 3")){
@@ -361,6 +355,14 @@ function getTools{
 }
 if($getTools){
     getTools
+}
+function downloadlist {
+    $host.UI.RawUI.foregroundcolor = "magenta"
+    Write-Host "`nPrinting download list to Downloads"
+    New-Item -path "$env:userprofile\downloads\" -name "downloadlist.txt" -ItemType file -value "http://download.windowsupdate.com/msdownload/update/software/svpk/2011/02/windows6.1-kb976932-x64_74865ef2562006e51d7f9333b4a8d45b7a749dab.exe, https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=windows&version=7.2.10.1&product=universalforwarder&filename=splunkforwarder-7.2.10.1-40b15aa1f501-x64-release.msi&wget=true"
+}    
+if($downloadlist){
+    downloadlist
 }
 # --------- group policy tool ---------
 function GPTool{
