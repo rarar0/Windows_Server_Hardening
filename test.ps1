@@ -15,7 +15,6 @@ netsh interface ipv4 set global mldlevel=none
 netsh advfirewall set allprofiles settings unicastresponsetomulticast disable
 
 
-
 $array1 = 389,636,3268,3269,88,53,25,135,5722,464,9389
 foreach ($element in $array1)
 {
