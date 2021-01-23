@@ -87,14 +87,15 @@ function getTools{
     $downloads = @{
         mbsacli_2_1_1_msi = "https://download.microsoft.com/download/A/1/0/A1052D8B-DA8D-431B-8831-4E95C00D63ED/MBSASetup-x64-EN.msi" #baseline security analyzer
         EMET_msi = "https://download.microsoft.com/download/F/3/6/F366901C-F3CB-4A94-B377-5611740B8B19/EMET%20Setup.msi" #Enhanced Mitigation Experience Toolkit 
-        dotNet_4_5_2_exe = "https://download.microsoft.com/download/E/2/1/E21644B5-2DF2-47C2-91BD-63C560427900/NDP452-KB2901907-x86-x64-AllOS-ENU.exe"
-        #dotNet_4_6_exe = "https://download.microsoft.com/download/C/3/A/C3A5200B-D33C-47E9-9D70-2F7C65DAAD94/NDP46-KB3045557-x86-x64-AllOS-ENU.exe"        
+        #dotNet_4_5_2_exe = "https://download.microsoft.com/download/E/2/1/E21644B5-2DF2-47C2-91BD-63C560427900/NDP452-KB2901907-x86-x64-AllOS-ENU.exe"
+        dotNet_4_6_exe = "https://download.microsoft.com/download/C/3/A/C3A5200B-D33C-47E9-9D70-2F7C65DAAD94/NDP46-KB3045557-x86-x64-AllOS-ENU.exe"        
         WMF_5_1_zip = "https://download.microsoft.com/download/6/F/5/6F5FF66C-6775-42B0-86C4-47D41F2DA187/Win7AndW2K8R2-KB3191566-x64.zip" #Windows Managment Framework 5.1 (PS 5.1)
         m_netMon_exe = "https://download.microsoft.com/download/7/1/0/7105C7FF-768E-4472-AFD5-F29108D1E383/NM34_x64.exe" #Microsoft NetMon
         #fciv_exe = "http://download.microsoft.com/download/c/f/4/cf454ae0-a4bb-4123-8333-a1b6737712f7/windows-kb841290-x86-enu.exe" #hash tool maybe use a baseline
         #splunkUF7_2_msi = 'https://www.splunk.com/page/download_track?file=7.2.0/windows/splunkforwarder-7.2.0-8c86330ac18-x64-release.msi&ac=&wget=true&name=wget&platform=Windows&architecture=x86_64&version=7.2.0&product=universalforwarder&typed=release'
         #splunkUF7_2_9_1_msi = "https://www.splunk.com/page/download_track?file=7.2.9.1/windows/splunkforwarder-7.2.9.1-605df3f0dfdd-x64-release.msi&ac=&wg&name=wget&platform=Windows&architecture=x86_64&version=7.2.9.1&product=universalforwarder&typed=release"
-        splunkUF8_0_1_msi = "https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=windows&version=8.0.1&product=universalforwarder&filename=splunkforwarder-8.0.1-6db836e2fb9e-x64-release.msi&wget=true"
+        splunkforwarder-7.2.10.1-40b15aa1f501-x64-release.msi = "https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=windows&version=7.2.10.1&product=universalforwarder&filename=splunkforwarder-7.2.10.1-40b15aa1f501-x64-release.msi&wget=true
+        #splunkUF8_0_1_msi = "https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=windows&version=8.0.1&product=universalforwarder&filename=splunkforwarder-8.0.1-6db836e2fb9e-x64-release.msi&wget=true"
         TimelineExplorer_zip = "https://f001.backblazeb2.com/file/EricZimmermanTools/TimelineExplorer.zip" #View CSV and Excel files, filter, group, sort, etc. with ease
         #csv_viewer_zip = "https://www.lo4d.com/get-file/csvfileview/35aa4e910d03353e5bffb2bdac9be578/"
         #winSCP_exe = "https://cdn.winscp.net/files/WinSCP-5.15.9-Setup.exe?secure=crToMdPESi8axxxbub8Y0Q==,1579143049"
@@ -138,6 +139,13 @@ function getTools{
             #Write-Host "All relevant tools downloaded"
         }
     }else{Write-Host -ForegroundColor Cyan "All tools downloaded"}
+    #Write txt file for update downloads
+    function downloadlist {
+    $host.UI.RawUI.foregroundcolor = "magenta"
+    Write-Host "`nPrinting download list to Downloads"
+    New-Item -path "$env:userprofile\downloads\" -name "downloadlist.txt" -ItemType file -value "http://download.windowsupdate.com/msdownload/update/software/svpk/2011/02/windows6.1-kb976932-x64_74865ef2562006e51d7f9333b4a8d45b7a749dab.exe"
+    
+    }
     #install sublime text editor?
     function installSublime{
         if(-not (Test-Path "C:\Program Files\Sublime Text 3")){
@@ -463,6 +471,8 @@ function timeStamp {
 if($timeStamp){
     timeStamp
 }
+
+
 #endregion misc
 
 #region Firewall
@@ -537,11 +547,11 @@ function firewallRules{ Param([Parameter(Mandatory=$false)][Switch]$reset)
         netsh advfirewall firewall add rule name="Allow LDAP: TCP port 389 IN" protocol=TCP dir=in localport=389 action=allow | Out-Null
         netsh advfirewall firewall add rule name="Allow LDAP: UDP port 389 OUT" protocol=UDP dir=out localport=389 action=allow | Out-Null
         netsh advfirewall firewall add rule name="Allow LDAP: TCP port 389 OUT" protocol=TCP dir=out localport=389 action=allow | Out-Null
-        Write-Host -ForegroundColor Cyan "LDAPZ: port 51203 TCP, UDP"
-        netsh advfirewall firewall add rule name="Allow LDAPZ: UDP port 51203 IN" protocol=UDP dir=in localport=51203 action=allow | Out-Null
-        netsh advfirewall firewall add rule name="Allow LDAPZ: TCP port 51203 IN" protocol=TCP dir=in localport=51203 action=allow | Out-Null
-        netsh advfirewall firewall add rule name="Allow LDAPZ: UDP port 51203 OUT" protocol=UDP dir=out localport=51203 action=allow | Out-Null
-        netsh advfirewall firewall add rule name="Allow LDAPZ: TCP port 51203 OUT" protocol=TCP dir=out localport=51203 action=allow | Out-Null
+        #Write-Host -ForegroundColor Cyan "LDAPZ: port 51203 TCP, UDP"
+        #netsh advfirewall firewall add rule name="Allow LDAPZ: UDP port 51203 IN" protocol=UDP dir=in localport=51203 action=allow | Out-Null
+        #netsh advfirewall firewall add rule name="Allow LDAPZ: TCP port 51203 IN" protocol=TCP dir=in localport=51203 action=allow | Out-Null
+        #netsh advfirewall firewall add rule name="Allow LDAPZ: UDP port 51203 OUT" protocol=UDP dir=out localport=51203 action=allow | Out-Null
+        #netsh advfirewall firewall add rule name="Allow LDAPZ: TCP port 51203 OUT" protocol=TCP dir=out localport=51203 action=allow | Out-Null
         Write-Host -ForegroundColor Cyan  "LDAP over SSL: port 636 TCP"
         netsh advfirewall firewall add rule name="Allow LDAP over SSL: TCP port 636 IN" protocol=TCP dir=in localport=636 action=allow | Out-Null
         netsh advfirewall firewall add rule name="Allow LDAP over SSL: TCP port 636 OUT" protocol=TCP dir=out localport=636 action=allow | Out-Null
