@@ -385,10 +385,7 @@ o	https://www.microsoft.com/en-us/download/details.aspx?id=5842
 o	https://www.microsoft.com/en-us/download/details.aspx?id=34595
 o	https://www.microsoft.com/en-us/download/details.aspx?id=40855
 Reboot a few times...cross your fingers
-https://www.glasswire.com/
-dafodor39810204
-FatAlbert42!
-"
+https://www.glasswire.com/"
 }    
 if($downloadlist){
     downloadlist
