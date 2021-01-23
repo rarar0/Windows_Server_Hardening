@@ -356,10 +356,15 @@ function getTools{
 if($getTools){
     getTools
 }
+# -------- Misc Download links --------
 function downloadlist {
     $host.UI.RawUI.foregroundcolor = "magenta"
     Write-Host "`nPrinting download list to Downloads"
-    New-Item -path "$env:userprofile\downloads\" -name "downloadlist.txt" -ItemType file -value "http://download.windowsupdate.com/msdownload/update/software/svpk/2011/02/windows6.1-kb976932-x64_74865ef2562006e51d7f9333b4a8d45b7a749dab.exe, https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=windows&version=7.2.10.1&product=universalforwarder&filename=splunkforwarder-7.2.10.1-40b15aa1f501-x64-release.msi&wget=true"
+    New-Item -path "$env:userprofile\downloads\" -name "downloadlist.txt" -ItemType file -value "http://download.windowsupdate.com/msdownload/update/software/svpk/2011/02/windows6.1-kb976932-x64_74865ef2562006e51d7f9333b4a8d45b7a749dab.exe
+https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=windows&version=7.2.10.1&product=universalforwarder&filename=splunkforwarder-7.2.10.1-40b15aa1f501-x64-release.msi&wget=true
+https://www.catalog.update.microsoft.com/search.aspx?q=kb4012215
+https://www.catalog.update.microsoft.com/Search.aspx?q=security%20monthly%20quality%20rollup%20for%20Windows%20Server%202008%20r2%20for%20x64
+"
 }    
 if($downloadlist){
     downloadlist
