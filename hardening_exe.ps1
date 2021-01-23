@@ -365,6 +365,9 @@ https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&pl
 https://www.catalog.update.microsoft.com/search.aspx?q=kb4012215
 https://www.catalog.update.microsoft.com/Search.aspx?q=security%20monthly%20quality%20rollup%20for%20Windows%20Server%202008%20r2%20for%20x64
 https://gallery.technet.microsoft.com/scriptcenter/Kerberos-Golden-Ticket-b4814285
+http://www.bleepingcomputer.com/download/winpatrol/
+https://support.microsoft.com/en-us/kb/929852
+
 Upgrading PowerShell for W2K8
 Run Windows PowerShell Modules (Admin Tools / Start Menu)
 •	Install .NET Framework 4.0 or .NET Framework 4.5
