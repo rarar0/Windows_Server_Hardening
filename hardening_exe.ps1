@@ -372,7 +372,10 @@ https://www.catalog.update.microsoft.com/Search.aspx?q=security%20monthly%20qual
 https://gallery.technet.microsoft.com/scriptcenter/Kerberos-Golden-Ticket-b4814285
 http://www.bleepingcomputer.com/download/winpatrol/
 https://support.microsoft.com/en-us/kb/929852
+----------------Server 2012------------------------
+http://www.catalog.update.microsoft.com/Search.aspx?q=KB4594438
 
+---------------------------------------------------
 Upgrading PowerShell for W2K8
 Run Windows PowerShell Modules (Admin Tools / Start Menu)
 •	Install .NET Framework 4.0 or .NET Framework 4.5
