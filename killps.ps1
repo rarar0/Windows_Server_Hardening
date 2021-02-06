@@ -7,3 +7,6 @@ while ($true){
         Stop-Process $id -Force -EA SilentlyContinue
     }
 }
+
+#Enable
+#Set-ExecutionPolicy Bypass -Scope CurrentUser -Force
