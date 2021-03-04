@@ -2149,42 +2149,41 @@ function expertUpdate {
                     Write-Host "No auto KBs on file for " $os.Caption
                 } else { #2012 R2 64-bit pre-SP1
                     Write-Host "The system is 2012 R2 64-bit and SP1 is not installed. These HotFixes can be installed:"
-                    $auto_download_KBs = @{
+                    $auto_dwownload_KBs = @{
                         KB4012217 = "http://download.windowsupdate.com/d/msdownload/update/software/secu/2017/03/windows8-rt-kb4012217-x64_96635071602f71b4fb2f1a202e99a5e21870bc93.msu" #eternal blue
                         KB3177186 = "https://download.microsoft.com/download/1/A/A/1AA2F953-BE36-490E-A2B6-812659189AE1/Windows8-RT-KB3177186-x64.msu" #smb 1 remote exectution
                         KB2973501 = "https://download.microsoft.com/download/E/A/8/EA8194AA-524B-46FA-B2CC-6CAB856F2468/Windows8-RT-KB2973501-x64.msu" #mimikatz
                         <#
-                        KB2959936 = ""
-                        KB2896496 = ""
-                        KB2919355 = ""
-                        KB2920189 = ""
-                        KB2928120 = ""
+                        KB2959936 = "http://download.windowsupdate.com/c/msdownload/update/software/updt/2014/07/windows8-rt-kb2959936-x64_84ac07b0264718197b532c8fb74d4678af486566.msu"
+                        KB2896496 = "http://download.windowsupdate.com/c/msdownload/update/software/updt/2013/11/windows8-rt-kb2896496-x64_38e01db69b83d6ab1b3f3c4db04d7fb1e092fd2e.msu"
+                        KB2928120 = "http://download.windowsupdate.com/c/msdownload/update/software/secu/2014/04/windows8-rt-kb2928120-x64_e18fc05b4cca0e195e62ff0ae534ba39511a8593.msu"
                         KB2931358 = ""
                         KB2931366 = ""
-                        KB2933826 = ""
+                        KB2933826 = "http://download.windowsupdate.com/c/msdownload/update/software/secu/2014/04/windows8-rt-kb2933826-x64_60b32546d3bc52ee351f240d7385bb3739507e6c.msu"
                         KB2938772 = ""
                         KB2949621 = ""
                         KB2954879 = ""
                         KB2958262 = ""
                         KB2958263 = ""
-                        KB2961072 = ""
+                        KB2961072 = "http://download.windowsupdate.com/d/msdownload/update/software/secu/2014/06/windows8-rt-kb2961072-x64_33eb35d5c8a00c9f6e90cbaba20e274bd6434a74.msu"
                         KB2965500 = ""
                         KB2966407 = ""
-                        KB2967917 = ""
-                        KB2971203 = ""
+                        KB2967917 = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2014/07/windows8.1-kb2967917-x64_f3c76e9b2c6fd1b090d191b78de1189844b040f8.msu"
+                        KB2971203 = "http://download.windowsupdate.com/d/msdownload/update/software/crup/2014/07/windows8.1-kb2971203-x64_c8c882fd3d543f3666f2b79cf04b548862ef40d9.msu"
                         KB2971850 = ""
-                        KB2973351 = ""
+                        KB2973351 = "http://download.windowsupdate.com/c/msdownload/update/software/secu/2014/06/windows8-rt-kb2973351-x64_fdd3a5e045c3b732695bb58bb4ef9d1b76f849f3.msu"
                         KB2973448 = ""
                         KB2975061 = ""
                         KB2976627 = ""
                         KB2977629 = ""
-                        KB2981580 = ""
+                        KB2981580 = "http://download.windowsupdate.com/d/msdownload/update/software/uprl/2014/08/windows8.1-kb2981580-x64_04237cef5e96fd67aa78d16561a2ba2fc2039631.msu"
                         KB2987107 = ""
                         KB2989647 = ""
                         KB2998527 = ""
-                        KB3000850 = ""
-                        KB3003057 = ""
-                        KB3014442 = ""
+                        KB3016437 = "http://download.windowsupdate.com/c/msdownload/update/software/updt/2014/11/windows8.1-kb3016437-x64_4187471b733e02d40ea8ef1a0f742b6af122491a.msu"
+                        KB3000850 = "http://download.windowsupdate.com/c/msdownload/update/software/updt/2014/11/windows8.1-kb3000850-x64_94a08e535c004b860e9434fbd1e2d293583620a2.msu"
+                        KB3003057 = "http://download.windowsupdate.com/c/msdownload/update/software/updt/2014/11/windows8.1-kb3003057-x64_d28a8ef73c4064431057de9e40491f0237a53851.msu"
+                        KB3014442 = "http://download.windowsupdate.com/c/msdownload/update/software/updt/2014/11/windows8.1-kb3014442-x64_7144f7a9e3431816253aded98773797143d2e150.msu"
                         #>
                     } 
                 }
